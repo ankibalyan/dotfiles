@@ -1,0 +1,91 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+
+	name = Ankit Kumar
+#	email = ankit.kr.balyan@gmail.com
+
+[alias]
+# shortcuts
+	ss = status -s
+	co = checkout
+	br = branch
+	fetchp = fetch --prune   # it's always good to prune when you fetch
+	remotes = remote -v     # shows where your clone came from
+	diffn = diff --name-only    # shows files that have changed, without the content
+	rh = reset --hard HEAD
+  b = checkout -b
+  co = checkout
+  ca = commit -a --verbose
+  cp = cherry-pick
+  amend = commit -a --amend --no-edit
+  unstage = reset --soft HEAD
+  cdiff = "!git diff $1 $1^"
+
+# hg commands translated to git
+	up = checkout
+	update = checkout
+	id = rev-parse --verify HEAD --short
+	stat = status
+	tags = tag
+	path = remote -v
+	branches = branch -a
+	branch-name = rev-parse --abbrev-ref HEAD 
+	bn = !git branch-name   # same as hg branch
+
+# commands for managing local workspace, staged area, and committed files
+	commits = !git "log origin/$(git branch-name)..$(git branch-name) --oneline"  # see files that are committed and not pushed
+	staged = diff --staged --name-status        # see files that have been staged
+
+	undo = !git co    # undo local changes: a list of files or '.' for all
+	undos = reset	# undo staging
+	reseth= reset --hard	# gets rid of staged and local changes
+	undoc = !git "reset --hard origin/$(git branch-name)" # undo commits/merges
+	unmerge = undoc
+
+# other useful commands
+	lid = rev-parse --verify HEAD   # shows the full hash of the id
+
+	bv = branch -v          # shows last commit on each local branch
+	bvv = branch -vv        # shows last commit on each remote branch
+
+	ll = log --oneline --decorate=full      # short one-line log
+
+	graph = log --graph --oneline --decorate=full
+
+[push]
+  default = current
+
+[core]
+	#hooksPath = .githooks/
+	editor = vim
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+    features = line-numbers decorations
+    whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
+
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[init]
+	defaultBranch = main
